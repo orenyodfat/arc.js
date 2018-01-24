@@ -78,7 +78,7 @@ module.exports = {
          * (You must do this yourself, in your OS.)
          *
          *    npm start test.ganacheDb.zip
-         * 
+         *
          * You can later unzip the database:
          *
          *    npm start test.ganacheDb.restoreFromZip
@@ -125,7 +125,7 @@ module.exports = {
     migrateContracts: {
       /**
        * Migrate contracts.
-       * 
+       *
        * Truffle will merge the migration into whatever previous ones were already present in the contract json files.
        */
       default: `${truffleCommand} migrate --contracts_build_directory ${pathArcJsContracts} --without-compile ${network ? `--network ${network}` : "ganache"}`,
