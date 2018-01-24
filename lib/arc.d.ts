@@ -131,15 +131,27 @@ declare module "daostack-arc-js" {
   export function getDefaultAccount(): any;
 
   export class ExtendTruffleContract {
-    static new(options: any): any;
+    /**
+     * Instantiate the class.  It will not yet be associated with a migrated contract.
+     */
+    static new(): any;
+    /**
+     * Instantiate the class as it was migrated to the given address on
+     * the current network.
+     * @param address 
+     */
     static at(address: string): any;
+    /**
+     * Instantiate the class as it was migrated by Arc-Js on the given network.
+     */
     static deployed(): any;
     /**
-     * the underlying truffle contract object
+     * The underlying truffle contract object
      */
     public contract: any;
     /**
      * Call setParameters on this contract, returning promise of the parameters hash.
+     * This will create a transaction.
      * @params Should contain property names expected by the specific contract type.
      */
     public setParams(params: any): Promise<string>;
@@ -147,16 +159,17 @@ declare module "daostack-arc-js" {
 
   export class ExtendTruffleScheme extends ExtendTruffleContract {
     /**
-     * Returns a string containing 1s and 0s representing scheme permissions as follows:
+     * Returns a string containing 1's and 0's representing the minimum 
+     * permissions that the scheme may have, as follows:
      *
-     * All 0: Not registered,
-     * 1st bit: Flag if the scheme is registered,
+     * All 0: No permissions (note a scheme is always registered when added to a DAO)
+     * 1st bit: Scheme is registered
      * 2nd bit: Scheme can register other schemes
      * 3th bit: Scheme can add/remove global constraints
      * 4rd bit: Scheme can upgrade the controller
      *
      */
-    getDefaultPermissions(overrideValue: string): string;
+    public getDefaultPermissions(overrideValue: string): string;
   }
 
   export interface StandardNewSchemeParams {
@@ -169,8 +182,8 @@ declare module "daostack-arc-js" {
 
   export interface FounderConfig {
     address: string;
-    tokens: string|number; // in Wei
-    reputation: string|number;
+    tokens: string | number; // in Wei
+    reputation: string | number;
   }
 
   export interface OrganizationNewConfig {
@@ -515,8 +528,8 @@ declare module "daostack-arc-js" {
     /**
      * Event functions as defined by the parent Truffle contract
      */
-    LogNewContributionProposal(filters : any, options : any) : any;
-    LogProposalExecuted(filters : any, options : any) : any;
-    LogProposalDeleted(filters : any, options : any): any;
+    LogNewContributionProposal(filters: any, options: any): any;
+    LogProposalExecuted(filters: any, options: any): any;
+    LogProposalDeleted(filters: any, options: any): any;
   }
 }

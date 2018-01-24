@@ -78,6 +78,10 @@ module.exports = {
          * (You must do this yourself, in your OS.)
          *
          *    npm start test.ganacheDb.zip
+         * 
+         * You can later unzip the database:
+         *
+         *    npm start test.ganacheDb.restoreFromZip
          *
          * Now you can restart ganache against the new database:
          *
@@ -116,51 +120,21 @@ module.exports = {
       publish: series("nps build", "npm publish")
     },
     /**
-     *
-     * Typical workflow for migrating to ganache (Ganache):
-     *
-     * Fire up ganache (Ganache) in a separate window.
-     *
-     *    npm start test.ganache.runAsync
-     *
-     * If the window didn't fire up in your OS, then run this
-     * in a separate window of your own creation:
-     *
-     *    npm start test.ganache.run
-     *
-     * Then run the migrations:
-     *
-     *    npm start migrateContracts
-     *
-     * And you're ready to run arc-js tests or your application against arc-js.
-     *
-     * Notes:
-     *
-     * If you want to migrate to another network, kovan for example:
-     *
-     *    Set the "network" config value to "kovan" (see "Arc Configuration" in the root readme.md)
-     *    Start a local network node listening at http://127.0.0.1:8584
-     *    Run:  npm start migrateContracts
-     *
-     * To deploy to the mainnet, Set the "network" config value to "live" and proceed as above.
-     * (see "Arc Configuration" in the root readme.md)
+     * See README.md for how to use these scripts in a workflow to migrate contracts
      */
     migrateContracts: {
       /**
        * Migrate contracts.
-       *
-       * Truffle will merge this migration with whatever previous ones are already present in the contract json files.
-       *
-       * Run migrateContracts.fetchFromArc first if you want to start with fresh unmigrated contracts from daostack-arc.
+       * 
+       * Truffle will merge the migration into whatever previous ones were already present in the contract json files.
        */
       default: `${truffleCommand} migrate --contracts_build_directory ${pathArcJsContracts} --without-compile ${network ? `--network ${network}` : "ganache"}`,
       /**
        * Clean the outputted contract json files, optionally andMigrate.
        *
-       * IMPORTANT! Only do this if you aren't worried about losing
-       * previously-performed migrations to other networks.  By cleaning, you'll lose them, starting
-       * from scratch.  Otherwise, truffle will merge your migrations into whatever  previous
-       * ones exist.
+       * IMPORTANT! Only do this if you aren't worried about losing previously-performed
+       * migrations to other networks.  By cleaning, you'll lose them, starting
+       * from scratch.
        */
       clean: {
         default: rimraf(joinPath(pathArcJsContracts, "*")),
@@ -168,7 +142,7 @@ module.exports = {
       },
       /**
        * Fetch the unmigrated contract json files from DAOstack-Arc.
-       * Run this only when we want to start with fresh unmigrated contracts from daostack-arc.
+       * Run this ONLY when we want to start with fresh unmigrated contracts from daostack-arc.
        */
       fetchFromArc: copy(`${joinPath(pathDaostackArcRepo, "build", "contracts", "*")}  ${pathArcJsContracts}`)
     }
