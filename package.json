@@ -23,7 +23,8 @@
   "scripts": {
     "start": "nps",
     "test": "npm start test",
-    "build": "npm start build"
+    "build": "npm start build",
+    "docs": "node ./package-scripts/docs/cli.js"
   },
   "repository": {
     "type": "git",
@@ -90,6 +91,9 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.4.0",
     "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "shelljs": "^0.8.1",
+    "typedoc": "^0.10.0",
+    "yargs": "^11.0.0"
   }
 }

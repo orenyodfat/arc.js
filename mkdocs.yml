@@ -1,0 +1,26 @@
+site_name: DAOstack Arc.js Docs
+site_url: https://daostack.github.io/arc.js
+repo_url: https://github.com/daostack/arc.js/
+repo_name: daostack/arc.js
+site_description: A platform for building DAOs
+docs_dir: docs
+markdown_extensions:
+- admonition
+- codehilite:
+    linenums: true
+- toc:
+    permalink: true
+theme:
+  name: 'material'
+  favicon: 'img/favicon.ico'
+  palette:
+    primary: 'green'
+    accent: 'light blue'
+extra:
+  social:
+  - type: 'github'
+    link: 'https://github.com/daostack/arc.js'
+  - type: 'slack'
+    link: 'https://daostack.slack.com'
+  - type: 'telegram'
+    link: 'https://t.me/daostackcommunity'

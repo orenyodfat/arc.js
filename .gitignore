@@ -8,3 +8,5 @@ dist/
 ganacheDb.zip
 migrated_contracts/
 *.sublime-project
+docs/generated_docs/
+.docs_build/

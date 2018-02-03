@@ -103,7 +103,6 @@ declare module "daostack-arc.js" {
   /********************************
    * utils.js
    */
-
   export class Utils {
     /**
      * Returns TruffleContract given the name of the contract (like "SchemeRegistrar"), or undefined
@@ -114,8 +113,18 @@ declare module "daostack-arc.js" {
       contractName: string
     ): any;
 
+    /**
+     * Return the global instance of web3.
+     * Throws an exception when web3 cannot be initialized or there is no default client.
+     */
     static getWeb3(): Web3;
 
+    /** Return a value from a TransactionReceiptTruffle
+     * @param {TransactionReceiptTruffle} tx The transaction
+     * @param {string} argName The name of the property whose value we wish to return, from  the args object: tx.logs[index].args[argName]
+     * @param {string} eventName Overrides index, identifies which log, where tx.logs[n].event  === eventName
+     * @param {number} index Identifies which log, when eventName is not given
+     */
     static getValueFromLogs(
       tx: TransactionReceiptTruffle,
       arg: string,
@@ -248,6 +257,9 @@ declare module "daostack-arc.js" {
     tx: string;
   }
 
+  /**
+   * Base class for all of the Arc contract wrapper classes
+   */
   export class ExtendTruffleContract {
     /**
      * Instantiate the class.  It will not yet be associated with a migrated contract.
@@ -276,6 +288,9 @@ declare module "daostack-arc.js" {
     public setParams(params: any): Promise<ArcTransactionDataResult>;
   }
 
+  /**
+   * Base class for all of the Arc contract wrappers that have parameters
+   */
   export class ExtendTruffleScheme extends ExtendTruffleContract {
     /**
      * Returns a string containing an 8-digit hex number representing the minimum 
